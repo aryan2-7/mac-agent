@@ -9,32 +9,39 @@ the model proposes a command, the script runs it, the result goes back to the mo
 ## Setup
 
 ```bash
-# 1. Install uv (if you don't have it)
-brew install uv
+git clone https://github.com/<your-username>/mac-agent.git
+cd mac-agent
 
-# 2. Install Ollama
-brew install ollama
-
-# 3. Start the Ollama server (leave running in a terminal, or run as a
-#    background service)
-ollama serve &
-
-# 4. Pull the model (~4.7GB download)
+# one-time setup
+brew install uv ollama
 ollama pull qwen2.5:7b-instruct
-
-# 5. Sync the project's Python deps (creates a local .venv automatically)
 uv sync
+
+# in one terminal, keep the Ollama server running
+ollama serve
+
+# in another terminal, run the agent
+uv run mac_agent.py "open Notes and create a new note titled Groceries"
 ```
 
 ## Usage
 
 ```bash
-uv run mac_agent.py "open Notes and create a new note titled Groceries"
+# one-shot
+uv run mac_agent.py "close all Finder windows and open Safari"
 
-# or interactively
+# interactive — prompts you for a goal
 uv run mac_agent.py
 ```
 
+While it runs you'll see each command it executes and the result:
+
+[step 1] applescript: tell application "Safari" to activate
+  → (no output, success)
+
+✅ Done: Opened Safari.
+
+Press Ctrl+C at any point to abort a run
 
 ## Safety
 
