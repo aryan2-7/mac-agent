@@ -1,0 +1,11 @@
+[project]
+name = "mac-agent"
+version = "0.1.0"
+description = "Lightweight local computer-use agent for macOS (Ollama + Qwen2.5, no API keys)"
+requires-python = ">=3.9"
+dependencies = [
+    "requests",
+]
+
+[tool.uv]
+package = false
